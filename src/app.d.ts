@@ -1,5 +1,3 @@
-/// <reference types="vite/client" />
-
 declare module './App.jsx' {
     import { FC } from 'react';
     const App: FC;

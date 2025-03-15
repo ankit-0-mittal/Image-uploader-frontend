@@ -15,28 +15,30 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 
-
 const UploadImage = () => {
-    const [selectedFile, setSelectedFile] = useState(null);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-    const handleFileChange = (e) => {
-        setSelectedFile(e.target.files[0]);
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSelectedFile(e.target.files![0]);
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (!selectedFile) {
+            alert('Please select a file to upload.');
+            return;
+        }
         const formData = new FormData();
         formData.append('image', selectedFile);
 
-       const storageRef = ref(storage, `uploads/${selectedFile.name}`);
-       try {
-         await uploadBytes(storageRef, selectedFile);
-         alert('File uploaded successfully!');
-       } catch (error) {
-         console.error('Error uploading file:', error);
-         alert('Error uploading file!');
-       }
-
+        const storageRef = ref(storage, `uploads/${selectedFile.name}`);
+        try {
+            await uploadBytes(storageRef, selectedFile);
+            alert('File uploaded successfully!');
+        } catch (error) {
+            console.error('Error uploading file:', error);
+            alert('Error uploading file!');
+        }
     };
 
     return (
