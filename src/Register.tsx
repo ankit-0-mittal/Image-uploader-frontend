@@ -6,7 +6,7 @@ const Register = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const response = await fetch('/api/register', {
+        const response = await fetch('http://127.0.0.1:5000/auth/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -14,6 +14,16 @@ const Register = () => {
             body: JSON.stringify({ username, password }),
         });
         const result = await response.json();
+
+        if (response.ok) {
+            alert('Registered successfully!');
+            setUsername('');
+            setPassword('');
+            window.location.href='/upload'
+        } else {
+            alert(result.message || 'Registration failed. Please try again.');
+        }
+
         console.log(result);
     };
 
