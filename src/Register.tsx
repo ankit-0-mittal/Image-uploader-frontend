@@ -6,10 +6,11 @@ const Register = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const response = await fetch('http://127.0.0.1:5000/auth/register', {
+        const response = await fetch('https://67f9-2405-201-6800-700e-3832-34ae-6085-3ccf.ngrok-free.app/auth/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                "ngrok-skip-browser-warning": "true" 
             },
             body: JSON.stringify({ username, password }),
         });

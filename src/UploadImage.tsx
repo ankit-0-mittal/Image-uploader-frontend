@@ -8,7 +8,9 @@ const UploadImage = () => {
         // Fetch uploaded files when the component mounts
         const fetchFiles = async () => {
             try {
-                const response = await fetch('http://localhost:5000/images/list');
+                const response = await fetch('https://67f9-2405-201-6800-700e-3832-34ae-6085-3ccf.ngrok-free.app/images/list',{
+                    headers: { "ngrok-skip-browser-warning": "true" }
+                });
                 const data = await response.json();
                 if (response.ok) {
                     setFiles(data.images); // Assuming { images: [...] } from API
@@ -40,9 +42,10 @@ const UploadImage = () => {
         formData.append('file', selectedFile); // 🟢 Flask expects "file"
 
         try {
-            const response = await fetch('http://localhost:5000/images/upload', {
+            const response = await fetch('https://67f9-2405-201-6800-700e-3832-34ae-6085-3ccf.ngrok-free.app/images/upload', {
                 method: 'POST',
                 body: formData,
+                headers: { "ngrok-skip-browser-warning": "true" }
             });
 
             const data = await response.json();
